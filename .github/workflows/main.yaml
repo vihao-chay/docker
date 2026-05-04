@@ -14,9 +14,11 @@ jobs:
                 username: ${{ secrets.SSH_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 script: |
+                     sudo chown -R azureuser:azureuser /home/azureuser/docker
                      git config --global --add safe.directory /home/azureuser/docker
                      cd /home/azureuser/docker
                      git pull
                      sudo docker build . -t img-html
+                     sudo docker rm -f cons-html || true
                      sudo docker run -d -p 3001:80 --name cons-html img-html
                      sudo docker images -f "dangling=true" -q | xargs sudo docker rmi
