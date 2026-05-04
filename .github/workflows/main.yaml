@@ -14,7 +14,7 @@ jobs:
                 username: ${{ secrets.SSH_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 script: |
-                     cd /home/azureuser/landing_page
+                     cd /home/azureuser/docker
                      git pull
                      docker build . -t img-html
                      docker run -d -p 3001:80 --name cons-html img-html
