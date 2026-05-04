@@ -14,8 +14,9 @@ jobs:
                 username: ${{ secrets.SSH_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 script: |
+                     git config --global --add safe.directory /home/azureuser/docker
                      cd /home/azureuser/docker
                      git pull
-                     docker build . -t img-html
-                     docker run -d -p 3001:80 --name cons-html img-html
-                     docker images -f "dangling=true" -q | xargs docker rmi
+                     sudo docker build . -t img-html
+                     sudo docker run -d -p 3001:80 --name cons-html img-html
+                     sudo docker images -f "dangling=true" -q | xargs sudo docker rmi
